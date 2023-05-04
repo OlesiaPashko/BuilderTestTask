@@ -8,8 +8,6 @@ namespace BuilderGame.Gameplay.Farming
     {
         [SerializeField] private GrassUnitAnimator animator;
         
-        public float Size => 1f;
-
         private void OnTriggerEnter(Collider other)
         {
             animator.Pump().AppendCallback(() => Destroy(gameObject));

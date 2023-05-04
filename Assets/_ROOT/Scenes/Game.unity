@@ -1213,7 +1213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rows: 6
   columns: 6
-  grassUnitPrefab: {fileID: 3301721286064934252, guid: 435a62c6af514eb428f0162a85372267, type: 3}
+  farmUnitPrefab: {fileID: 7890832535699296809, guid: 435a62c6af514eb428f0162a85372267, type: 3}
 --- !u!1 &1060034505
 GameObject:
   m_ObjectHideFlags: 0
@@ -1708,22 +1708,6 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 9a0659a4a8e8cad43ac13be8cc39e616, type: 3}
   m_PrefabInstance: {fileID: 1548273915}
   m_PrefabAsset: {fileID: 0}
---- !u!54 &1548273918
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1439743918}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
 --- !u!136 &1548273919
 CapsuleCollider:
   m_ObjectHideFlags: 0
