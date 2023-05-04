@@ -6,26 +6,21 @@ namespace BuilderGame.Gameplay.Farming
 
     public class GrassUnit : MonoBehaviour
     {
-        [SerializeField] private GrassUnitAnimator animator;
+        [SerializeField] private GrassUnitAnimator[] animators;
         public event Action OnDestroyed;
 
         public void DestroyWithAnimation()
         {
-            animator.Pump().AppendCallback(SelfDestroy);
+            foreach (var animator in animators)
+            {
+                animator.Pump().AppendCallback(SelfDestroy);
+            }
         }
 
         private void SelfDestroy()
         {
             OnDestroyed?.Invoke();
             Destroy(gameObject);
-        }
-
-        private void OnValidate()
-        {
-            if (animator == null)
-            {
-                animator = GetComponent<GrassUnitAnimator>();
-            }
         }
     }
 }
