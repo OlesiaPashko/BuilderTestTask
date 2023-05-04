@@ -246,6 +246,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plantAnimator: {fileID: 6160567400373262446}
+  afterRaiseDelay: 1
 --- !u!1 &5347816364394041366
 GameObject:
   m_ObjectHideFlags: 0

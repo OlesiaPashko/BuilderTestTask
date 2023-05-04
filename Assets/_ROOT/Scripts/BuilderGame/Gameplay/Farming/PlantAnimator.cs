@@ -33,7 +33,7 @@ namespace BuilderGame.Gameplay.Farming
         [SerializeField] private Offspring offspringPrefab;
         [SerializeField] private GameObject appearanceFx;
 
-        private GameObject plant;
+        private GameObject plantModel;
 
         public Sequence AnimateGrow()
         {
@@ -47,12 +47,12 @@ namespace BuilderGame.Gameplay.Farming
             var offspring = DiContainer.InstantiatePrefabForComponent<Offspring>(offspringPrefab, transform);
             offspring.Raise();
             sequence.Join(ScaleDownPlant())
-                .AppendCallback(() => Destroy(plant.gameObject));
+                .AppendCallback(() => Destroy(plantModel.gameObject));
             return sequence;
         }
         private Tween ScaleDownPlant()
         {
-            return plant.transform.DOScale(Vector3.zero, scaleDownDuration)
+            return plantModel.transform.DOScale(Vector3.zero, scaleDownDuration)
                 .SetEase(scaleDownEase);
         }
 
@@ -82,7 +82,7 @@ namespace BuilderGame.Gameplay.Farming
         {
             if (plantView == plantViews[^1])
             {
-                plant = currentPlant;
+                plantModel = currentPlant;
                 return;
             }
 

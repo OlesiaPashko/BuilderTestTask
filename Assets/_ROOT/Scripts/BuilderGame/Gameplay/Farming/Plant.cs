@@ -7,8 +7,10 @@ namespace BuilderGame.Gameplay.Farming
     public class Plant : MonoBehaviour
     {
         [SerializeField] private PlantAnimator plantAnimator;
+        [SerializeField] private float afterRaiseDelay = 1f;
 
         public event Action OnPlantReady;
+        public event Action OnPlantRaised;
 
         public void StartGrowing()
         {
@@ -17,7 +19,7 @@ namespace BuilderGame.Gameplay.Farming
         
         public void Raise()
         {
-            plantAnimator.AnimateRaise();
+            plantAnimator.AnimateRaise().AppendInterval(afterRaiseDelay).AppendCallback(() => OnPlantRaised?.Invoke());
         }
     }
 }

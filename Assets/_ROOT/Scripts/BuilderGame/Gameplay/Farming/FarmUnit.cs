@@ -1,6 +1,7 @@
 namespace BuilderGame.Gameplay.Farming
 {
     using System;
+    using System.Threading.Tasks;
     using UnityEngine;
     using Zenject;
 
@@ -23,6 +24,7 @@ namespace BuilderGame.Gameplay.Farming
         {
             grassUnit.OnDestroyed += SetStateToGround;
             plant.OnPlantReady += SetPlantReady;
+            plant.OnPlantRaised += SetPlantRaised;
         }
         
         private void OnTriggerEnter(Collider other)
@@ -58,6 +60,11 @@ namespace BuilderGame.Gameplay.Farming
         {
             UpdateState(FarmUnitState.PlantReady);
         }
+        private void SetPlantRaised()
+        {
+            
+            UpdateState(FarmUnitState.Ground);
+        }
 
         private void UpdateState(FarmUnitState state)
         {
@@ -70,6 +77,7 @@ namespace BuilderGame.Gameplay.Farming
         {
             grassUnit.OnDestroyed -= SetStateToGround;
             plant.OnPlantReady -= SetPlantReady;
+            plant.OnPlantRaised -= SetPlantRaised;
         }
     }
 
