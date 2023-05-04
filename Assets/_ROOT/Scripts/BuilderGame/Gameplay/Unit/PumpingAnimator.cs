@@ -1,9 +1,9 @@
-namespace BuilderGame.Gameplay.Farming
+namespace BuilderGame.Gameplay.Unit
 {
     using DG.Tweening;
     using UnityEngine;
 
-    public class GroundAnimator : MonoBehaviour
+    public class PumpingAnimator : MonoBehaviour
     {
         [Header("Settings")] 
         [SerializeField] private Vector3 scale = new Vector3(0.1f, 0.1f, 0.1f);
@@ -12,18 +12,12 @@ namespace BuilderGame.Gameplay.Farming
 
         private bool isTriggered;
 
-        private void OnTriggerEnter(Collider other)
+        public void Pump()
         {
             if (isTriggered)
             {
                 return;
             }
-
-            Pump();
-        }
-
-        public void Pump()
-        {
             isTriggered = true;
             DOTween.Sequence().Join(transform.DOScale(scale, duration)
                     .SetRelative(true)

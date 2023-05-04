@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 834533630209476855}
   - component: {fileID: 2825462748518548503}
   - component: {fileID: 8814265456076773617}
+  - component: {fileID: 3364069576031152407}
   m_Layer: 6
   m_Name: Ground
   m_TagString: Untagged
@@ -97,9 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ceea702eed284cfc8862448037d8dd0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scale: {x: 0.1, y: 0.1, z: 0.1}
-  duration: 0.2
-  ease: 2
+  pumpingAnimator: {fileID: 3364069576031152407}
 --- !u!65 &8814265456076773617
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -113,6 +112,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3364069576031152407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705400876241640321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41d475a205db49a78e073aa39e6ce3d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scale: {x: 0.1, y: 0, z: 0.1}
+  duration: 0.2
+  ease: 2
 --- !u!1 &1705446085611098975
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,7 +227,7 @@ MonoBehaviour:
   punchEase: 13
   punchDuration: 0.2
   punch: {x: 0.2, y: 0.2, z: 0.2}
-  vibrato: 10
+  vibrato: 2
   elasticity: 1
   scaleEase: 6
   scaleDuration: 0.5

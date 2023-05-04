@@ -21,9 +21,9 @@ namespace BuilderGame.Gameplay.Farming
         {
             var sequence = DOTween.Sequence();
             var pump = transform.DOPunchScale(punch, punchDuration, vibrato, elasticity).SetEase(punchEase);
-            var scale = transform.DOScale(new Vector3(0f, 0f, 0f), scaleDuration)
+            var scale = transform.DOScale(new Vector3(0f, transform.position.y, 0f), scaleDuration)
                 .SetEase(scaleEase);
-            sequence.Append(pump).Append(scale);
+            sequence.Append(pump).Append(scale).Join(transform.DOLocalMoveY(0.3f, 1f));
             return sequence;
         }
     }

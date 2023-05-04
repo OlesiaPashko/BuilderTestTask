@@ -28,7 +28,7 @@ namespace BuilderGame.Gameplay.Farming
 
         private void OnTriggerEnter(Collider other)
         {
-            var player = other.GetComponent<PlayerPumpingAnimator>();
+            var player = other.GetComponent<PumpingAnimator>();
             if (player == null)
             {
                 return;

@@ -1217,8 +1217,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c41acb0051043e08e79557d5815f844, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rows: 2
-  columns: 2
+  rows: 6
+  columns: 6
   farmUnitPrefab: {fileID: 7890832535699296809, guid: 435a62c6af514eb428f0162a85372267, type: 3}
 --- !u!1 &1060034505
 GameObject:
