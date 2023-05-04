@@ -1,6 +1,7 @@
 namespace BuilderGame.Gameplay.Farming
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using DG.Tweening;
     using Unit;
     using UnityEngine;
@@ -26,6 +27,7 @@ namespace BuilderGame.Gameplay.Farming
         [Header("Raising")]
         [SerializeField] private Ease scaleDownEase = Ease.OutQuad;
         [SerializeField, Range(0f, 10f)] private float scaleDownDuration = 3f;
+        [SerializeField, Range(0f, 10f)] private float offspringSpawnDelay = 0.3f;
 
 
         [Header("Prefabs")] 
@@ -44,12 +46,20 @@ namespace BuilderGame.Gameplay.Farming
         public Sequence AnimateRaise()
         {
             var sequence = DOTween.Sequence();
-            var offspring = DiContainer.InstantiatePrefabForComponent<Offspring>(offspringPrefab, transform);
-            offspring.Raise();
+            RaiseOffspring();
             sequence.Join(ScaleDownPlant())
                 .AppendCallback(() => Destroy(plantModel.gameObject));
             return sequence;
         }
+
+        private async void RaiseOffspring()
+        {
+            const int millisecondsInSecond = 1000;
+            await Task.Delay((int)(offspringSpawnDelay * millisecondsInSecond));
+            var offspring = DiContainer.InstantiatePrefabForComponent<Offspring>(offspringPrefab, transform);
+            offspring.Raise();
+        }
+
         private Tween ScaleDownPlant()
         {
             return plantModel.transform.DOScale(Vector3.zero, scaleDownDuration)
@@ -71,8 +81,6 @@ namespace BuilderGame.Gameplay.Farming
                     .Append(currentPlant.transform.DOScale(startSize, timePerPlant)
                         .SetEase(scaleEase)
                     )
-                   // .Append(currentPlant.transform.DOPunchScale(punchValue, timePerPlant / 4f, vibrato, elasticity)
-                     //   .SetEase(punchEase))
                     .Append(ScaleToNextForm(plantView, currentPlant, size, timePerPlant))
                     .AppendCallback(() => { DestroyPlant(plantView, currentPlant); });
             }

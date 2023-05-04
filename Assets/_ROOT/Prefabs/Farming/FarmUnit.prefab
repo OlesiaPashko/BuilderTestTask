@@ -344,8 +344,8 @@ MonoBehaviour:
   punchValue: {x: 0.05, y: 0.05, z: 0.05}
   elasticity: 0.3
   vibrato: 3
-  scaleDownEase: 6
-  scaleDownDuration: 1.5
+  scaleDownEase: 7
+  scaleDownDuration: 0.55
   plantViews:
   - {fileID: 6833639390407589339, guid: e956bbbaeab7105449bf50ddf1599585, type: 3}
   - {fileID: 1244697753454076, guid: 8c64118ce05103a49965da9b0265081f, type: 3}
