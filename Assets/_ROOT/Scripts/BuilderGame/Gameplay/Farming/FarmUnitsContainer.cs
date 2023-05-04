@@ -5,7 +5,7 @@ namespace BuilderGame.Gameplay.Farming
     using UnityEngine;
     using Zenject;
 
-    public class FarmUnitsSpawner : MonoBehaviour
+    public class FarmUnitsContainer : MonoBehaviour
     {
         [Inject]
         public DiContainer DiContainer { get; set; }

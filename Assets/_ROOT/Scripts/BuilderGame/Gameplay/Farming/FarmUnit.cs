@@ -22,6 +22,7 @@ namespace BuilderGame.Gameplay.Farming
         private void Start()
         {
             grassUnit.OnDestroyed += SetStateToGround;
+            plant.OnPlantReady += SetPlantReady;
         }
         
         private void OnTriggerEnter(Collider other)
@@ -41,24 +42,34 @@ namespace BuilderGame.Gameplay.Farming
                 isTriggered = true;
                 plant.StartGrowing();
             }
+            else if(FarmField.State == FarmFieldState.Planting && State == FarmUnitState.PlantReady)
+            {            
+                isTriggered = true;
+                plant.Raise();
+            }
         }
 
         private void SetStateToGround()
         {
-            State = FarmUnitState.Ground;
-            OnStateUpdated?.Invoke();
-            isTriggered = false;
+            UpdateState(FarmUnitState.Ground);
         }
         
-        private void Plant()
+        private void SetPlantReady()
         {
+            UpdateState(FarmUnitState.PlantReady);
+        }
+
+        private void UpdateState(FarmUnitState state)
+        {
+            State = state;
             OnStateUpdated?.Invoke();
-            State = FarmUnitState.PlantGrowing;
+            isTriggered = false;
         }
 
         private void OnDestroy()
         {
             grassUnit.OnDestroyed -= SetStateToGround;
+            plant.OnPlantReady -= SetPlantReady;
         }
     }
 
@@ -66,6 +77,6 @@ namespace BuilderGame.Gameplay.Farming
     {
         Grass,
         Ground,
-        PlantGrowing
+        PlantReady
     }
 }

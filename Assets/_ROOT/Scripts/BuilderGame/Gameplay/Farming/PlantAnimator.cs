@@ -20,10 +20,21 @@ namespace BuilderGame.Gameplay.Farming
         [Header("Prefabs")] [SerializeField] private List<GameObject> plantViews;
         [SerializeField] private GameObject appearanceFx;
 
+        private GameObject plant;
+
         public Sequence AnimateGrow()
         {
             var duration = Random.Range(minDuration, maxDuration);
             return PlantViewAnimation(duration);
+        }
+        
+        public Sequence AnimateRaise()
+        {            
+            var sequence = DOTween.Sequence();
+
+            sequence.Append(plant.transform.DOScale(Vector3.zero, 3f)
+                .SetEase(scaleEase));
+            return sequence;
         }
 
         private Sequence PlantViewAnimation(float duration)
@@ -32,35 +43,36 @@ namespace BuilderGame.Gameplay.Farming
             var sequence = DOTween.Sequence();
             foreach (var plantView in plantViews)
             {
-                var plant = Instantiate(plantView, transform);
-                var startSize = plant.transform.localScale;
-                plant.transform.localScale = Vector3.zero;
+                var currentPlant = Instantiate(plantView, transform);
+                var startSize = currentPlant.transform.localScale;
+                currentPlant.transform.localScale = Vector3.zero;
                 sequence
-                    .AppendCallback(() => MakeBigPlant(plantView, plant, startSize))
-                    .Append(plant.transform.DOScale(startSize, timePerPlant)
+                    .AppendCallback(() => MakeBigPlant(plantView, currentPlant, startSize))
+                    .Append(currentPlant.transform.DOScale(startSize, timePerPlant)
                         .SetEase(scaleEase)
                     )
-                    .Append(plant.transform.DOPunchScale(punchValue, timePerPlant / 2f, vibrato, elasticity)
+                    .Append(currentPlant.transform.DOPunchScale(punchValue, timePerPlant / 2f, vibrato, elasticity)
                         .SetEase(punchEase))
-                    .AppendCallback(() => { DestroyPlant(plantView, plant); });
+                    .AppendCallback(() => { DestroyPlant(plantView, currentPlant); });
             }
 
             return sequence;
         }
 
-        private void DestroyPlant(GameObject plantView, GameObject plant)
+        private void DestroyPlant(GameObject plantView, GameObject currentPlant)
         {
             if (plantView == plantViews[^1])
             {
+                plant = currentPlant;
                 return;
             }
 
-            Destroy(plant.gameObject);
+            Destroy(currentPlant.gameObject);
         }
 
-        private void MakeBigPlant(GameObject plantView, GameObject plant, Vector3 startSize)
+        private void MakeBigPlant(GameObject plantView, GameObject currentPlant, Vector3 startSize)
         {
-            plant.transform.localScale = startSize * startScale;
+            currentPlant.transform.localScale = startSize * startScale;
             if (plantView == plantViews[0])
             {
                 return;
