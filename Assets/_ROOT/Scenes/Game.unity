@@ -838,7 +838,7 @@ MonoBehaviour:
   m_Follow: {fileID: 1827052300}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 3
+    OrthographicSize: 3.7
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -913,7 +913,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 3
+  orthographic size: 3.7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1217,8 +1217,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c41acb0051043e08e79557d5815f844, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rows: 6
-  columns: 6
+  rows: 4
+  columns: 4
   farmUnitPrefab: {fileID: 7890832535699296809, guid: 435a62c6af514eb428f0162a85372267, type: 3}
 --- !u!1 &1060034505
 GameObject:

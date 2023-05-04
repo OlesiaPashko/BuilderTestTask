@@ -480,7 +480,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxDuration: 4
   minDuration: 5
-  startScale: 0.848
+  startScale: 0.91
   scaleEase: 6
   punchEase: 33
   punchValue: {x: 0.05, y: 0.05, z: 0.05}

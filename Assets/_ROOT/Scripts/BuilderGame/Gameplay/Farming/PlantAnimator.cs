@@ -72,15 +72,17 @@ namespace BuilderGame.Gameplay.Farming
             var sequence = DOTween.Sequence();
             foreach (var plantView in plantViews)
             {
-                var currentPlant = Instantiate(plantView, transform.position, Quaternion.Euler(new Vector3(Random.Range(-10f, 10f), Random.Range(0f, 180f), Random.Range(-10f, 10f))), transform);
+                var randomAngle = new Vector3(Random.Range(-5f, 5f), Random.Range(-5f, 5f),
+                    Random.Range(-5f, 5f));
+                var currentPlant = Instantiate(plantView, transform);
                 var startSize = currentPlant.transform.localScale;
                 currentPlant.transform.localScale = Vector3.zero;
                 var size = startSize * startScale;
                 sequence
                     .AppendCallback(() => MakeBigPlant(plantView, currentPlant, size))
                     .Append(currentPlant.transform.DOScale(startSize, timePerPlant)
-                        .SetEase(scaleEase)
-                    )
+                        .SetEase(scaleEase))
+                    .Join(currentPlant.transform.DORotate(randomAngle, timePerPlant).SetEase(Ease.OutSine))
                     .Append(ScaleToNextForm(plantView, currentPlant, size, timePerPlant))
                     .AppendCallback(() => { DestroyPlant(plantView, currentPlant); });
             }
@@ -96,8 +98,9 @@ namespace BuilderGame.Gameplay.Farming
                 return DOTween.Sequence();
             }
 
-            return currentPlant.transform.DOScale(size, timePerPlant)
-                .SetEase(scaleEase);
+            return DOTween.Sequence().Join(currentPlant.transform.DOScale(size, timePerPlant)
+                .SetEase(scaleEase));
+            //.Join(currentPlant.transform.DORotate(Vector3.zero, timePerPlant).SetEase(Ease.InSine));
         }
 
         private void DestroyPlant(GameObject plantView, GameObject currentPlant)
