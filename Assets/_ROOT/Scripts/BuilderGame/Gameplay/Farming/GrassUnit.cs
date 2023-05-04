@@ -8,9 +8,16 @@ namespace BuilderGame.Gameplay.Farming
     {
         [SerializeField] private GrassUnitAnimator animator;
         public event Action OnDestroyed;
+
+        private bool isTriggered;
         
         private void OnTriggerEnter(Collider other)
         {
+            if (isTriggered)
+            {
+                return;
+            }
+            isTriggered = true;
             animator.Pump().AppendCallback(SelfDestroy);
         }
 
