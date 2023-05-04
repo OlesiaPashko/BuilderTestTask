@@ -9,7 +9,7 @@ namespace BuilderGame.Gameplay.Farming
     public class PlantAnimator : MonoBehaviour
     {
         [Inject]
-        public Player Player { get; set; }
+        public DiContainer DiContainer { get; set; }
         
         [Header("Settings")] 
         [SerializeField, Range(0f, 10f)] private float maxDuration;
@@ -30,7 +30,7 @@ namespace BuilderGame.Gameplay.Farming
 
         [Header("Prefabs")] 
         [SerializeField] private List<GameObject> plantViews;
-        [SerializeField] private GameObject tomatoPrefab;
+        [SerializeField] private Offspring offspringPrefab;
         [SerializeField] private GameObject appearanceFx;
 
         private GameObject plant;
@@ -44,27 +44,12 @@ namespace BuilderGame.Gameplay.Farming
         public Sequence AnimateRaise()
         {
             var sequence = DOTween.Sequence();
-            var tomato = Instantiate(tomatoPrefab, transform);
-            sequence.Join(MoveTomato(tomato, Player.centerBone))
-                .Join(ScaleDownPlant())
+            var offspring = DiContainer.InstantiatePrefabForComponent<Offspring>(offspringPrefab, transform);
+            offspring.Raise();
+            sequence.Join(ScaleDownPlant())
                 .AppendCallback(() => Destroy(plant.gameObject));
             return sequence;
         }
-        
-        private Tween MoveTomato(GameObject tomato, Transform target)
-        {
-            var duration = 10f;
-
-            var tomatoTransform = tomato.transform;
-            float normalizedValue = 0;
-
-            return DOTween.To(() => normalizedValue, newValue =>
-            {
-                normalizedValue = newValue;
-                tomatoTransform.position = Vector3.Lerp(tomatoTransform.position, target.transform.position, normalizedValue);
-            }, 1, duration);
-        }
-
         private Tween ScaleDownPlant()
         {
             return plant.transform.DOScale(Vector3.zero, scaleDownDuration)

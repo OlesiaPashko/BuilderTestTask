@@ -1974,6 +1974,7 @@ GameObject:
   - component: {fileID: 1827052305}
   - component: {fileID: 1827052304}
   - component: {fileID: 1827052306}
+  - component: {fileID: 1827052307}
   m_Layer: 7
   m_Name: Unit
   m_TagString: Untagged
@@ -2083,6 +2084,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   centerBone: {fileID: 940279168}
+--- !u!114 &1827052307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827052299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41d475a205db49a78e073aa39e6ce3d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scale: {x: 0.2, y: 0.2, z: 0.2}
+  duration: 0.1
+  ease: 2
 --- !u!1 &1932414137
 GameObject:
   m_ObjectHideFlags: 0
