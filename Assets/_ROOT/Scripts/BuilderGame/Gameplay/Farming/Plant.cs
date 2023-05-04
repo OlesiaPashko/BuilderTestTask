@@ -17,7 +17,7 @@ namespace BuilderGame.Gameplay.Farming
         
         public void Raise()
         {
-            plantAnimator.AnimateRaise().AppendCallback(() => Destroy(gameObject));
+            plantAnimator.AnimateRaise();
         }
     }
 }

@@ -2,22 +2,35 @@ namespace BuilderGame.Gameplay.Farming
 {
     using System.Collections.Generic;
     using DG.Tweening;
+    using Unit;
     using UnityEngine;
+    using Zenject;
 
     public class PlantAnimator : MonoBehaviour
     {
-        [Header("Settings")] [SerializeField, Range(0f, 10f)]
-        private float maxDuration;
-
+        [Inject]
+        public Player Player { get; set; }
+        
+        [Header("Settings")] 
+        [SerializeField, Range(0f, 10f)] private float maxDuration;
         [SerializeField, Range(0f, 10f)] private float minDuration;
+        
+        [Header("Growing")]
         [SerializeField, Range(0f, 1f)] private float startScale = 0.6f;
         [SerializeField] private Ease scaleEase = Ease.OutQuad;
         [SerializeField] private Ease punchEase = Ease.OutQuad;
         [SerializeField] private Vector3 punchValue = new Vector3(0.1f, 0.1f, 0.1f);
         [SerializeField] private float elasticity = 0.3f;
         [SerializeField] private int vibrato = 3;
+        
+        [Header("Raising")]
+        [SerializeField] private Ease scaleDownEase = Ease.OutQuad;
+        [SerializeField, Range(0f, 10f)] private float scaleDownDuration = 3f;
 
-        [Header("Prefabs")] [SerializeField] private List<GameObject> plantViews;
+
+        [Header("Prefabs")] 
+        [SerializeField] private List<GameObject> plantViews;
+        [SerializeField] private GameObject tomatoPrefab;
         [SerializeField] private GameObject appearanceFx;
 
         private GameObject plant;
@@ -29,12 +42,33 @@ namespace BuilderGame.Gameplay.Farming
         }
         
         public Sequence AnimateRaise()
-        {            
+        {
             var sequence = DOTween.Sequence();
-
-            sequence.Append(plant.transform.DOScale(Vector3.zero, 3f)
-                .SetEase(scaleEase));
+            var tomato = Instantiate(tomatoPrefab, transform);
+            sequence.Join(MoveTomato(tomato, Player.centerBone))
+                .Join(ScaleDownPlant())
+                .AppendCallback(() => Destroy(plant.gameObject));
             return sequence;
+        }
+        
+        private Tween MoveTomato(GameObject tomato, Transform target)
+        {
+            var duration = 10f;
+
+            var tomatoTransform = tomato.transform;
+            float normalizedValue = 0;
+
+            return DOTween.To(() => normalizedValue, newValue =>
+            {
+                normalizedValue = newValue;
+                tomatoTransform.position = Vector3.Lerp(tomatoTransform.position, target.transform.position, normalizedValue);
+            }, 1, duration);
+        }
+
+        private Tween ScaleDownPlant()
+        {
+            return plant.transform.DOScale(Vector3.zero, scaleDownDuration)
+                .SetEase(scaleDownEase);
         }
 
         private Sequence PlantViewAnimation(float duration)
@@ -51,7 +85,7 @@ namespace BuilderGame.Gameplay.Farming
                     .Append(currentPlant.transform.DOScale(startSize, timePerPlant)
                         .SetEase(scaleEase)
                     )
-                    .Append(currentPlant.transform.DOPunchScale(punchValue, timePerPlant / 2f, vibrato, elasticity)
+                    .Append(currentPlant.transform.DOPunchScale(punchValue, timePerPlant / 4f, vibrato, elasticity)
                         .SetEase(punchEase))
                     .AppendCallback(() => { DestroyPlant(plantView, currentPlant); });
             }

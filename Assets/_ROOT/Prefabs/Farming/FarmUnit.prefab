@@ -298,11 +298,14 @@ MonoBehaviour:
   punchValue: {x: 0.05, y: 0.05, z: 0.05}
   elasticity: 0.3
   vibrato: 3
+  scaleDownEase: 6
+  scaleDownDuration: 3
   plantViews:
   - {fileID: 6833639390407589339, guid: e956bbbaeab7105449bf50ddf1599585, type: 3}
   - {fileID: 1244697753454076, guid: 8c64118ce05103a49965da9b0265081f, type: 3}
   - {fileID: 1369296744457648, guid: 53848b3668c371945a42e67cc6233f75, type: 3}
   - {fileID: 1261134927141026, guid: 9bf2c79eafa22814a8bd2e6b64647e20, type: 3}
+  tomatoPrefab: {fileID: 1990033931522030, guid: 6bda52962e6ebeb4db15b7cff977f831, type: 3}
   appearanceFx: {fileID: 1022449249457458, guid: c74d485ce0256a74b977114354d9507a, type: 3}
 --- !u!1 &5989704496125553376
 GameObject:
