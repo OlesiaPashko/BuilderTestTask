@@ -9,7 +9,9 @@ namespace BuilderGame.Gameplay.Farming
         [Inject]
         public Player Player { get; set; }
 
-        [Header("Settings")] [SerializeField] private float speed;
+        [Header("Settings")] 
+        [SerializeField] private float speed;
+        [SerializeField] private float acceleration = 0.1f;
 
         private bool shouldMove;
 
@@ -39,6 +41,7 @@ namespace BuilderGame.Gameplay.Farming
 
         private void MoveToPlayer()
         {
+            speed += acceleration;
             transform.position = Vector3.Lerp(transform.position, Player.centerBone.position, speed * Time.deltaTime);
         }
     }
