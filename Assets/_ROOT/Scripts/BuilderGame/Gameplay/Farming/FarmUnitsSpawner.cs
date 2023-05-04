@@ -43,10 +43,6 @@ namespace BuilderGame.Gameplay.Farming
             {
                 FarmField.SetPlanting();
             }
-            else
-            {
-                Debug.Log($"<color=red> => NOT ALL </color>");
-            }
         }
 
         private Vector3 GetCenteredPosition(int columnIndex, int rowIndex, FarmUnit farmUnit)
