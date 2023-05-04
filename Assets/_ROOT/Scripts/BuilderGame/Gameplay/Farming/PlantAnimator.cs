@@ -12,14 +12,13 @@ namespace BuilderGame.Gameplay.Farming
 
         [SerializeField] private List<GameObject> plantViews;
 
-        public void AnimateGrow()
+        public Sequence AnimateGrow()
         {
             var duration = Random.Range(minDuration, maxDuration);
-            Debug.Log($"<color=red>duration => {duration} </color>");
-            PlantViewAnimation(duration);
+            return PlantViewAnimation(duration);
         }
 
-        private void PlantViewAnimation(float duration)
+        private Sequence PlantViewAnimation(float duration)
         {
             var timePerPlant = duration / plantViews.Count;
             var sequence = DOTween.Sequence();
@@ -28,7 +27,7 @@ namespace BuilderGame.Gameplay.Farming
                 var plant = Instantiate(plantView, transform);
                 var startSize = plant.transform.localScale;
                 plant.transform.localScale = Vector3.zero;
-                sequence.AppendCallback(()=>MakeBigPlant(plant, startSize))
+                sequence.AppendCallback(()=> MakeBigPlant(plant, startSize))
                     .Append(plant.transform.DOScale(startSize, timePerPlant))
                     .AppendCallback(()=>
                     {
@@ -39,6 +38,8 @@ namespace BuilderGame.Gameplay.Farming
                         Destroy(plant.gameObject);
                     });
             }
+
+            return sequence;
         }
 
         private void MakeBigPlant(GameObject plant, Vector3 startSize)
