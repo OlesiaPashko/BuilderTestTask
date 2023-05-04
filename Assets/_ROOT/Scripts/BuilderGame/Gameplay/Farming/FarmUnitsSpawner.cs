@@ -1,6 +1,7 @@
 namespace BuilderGame.Gameplay.Farming
 {
     using System.Collections.Generic;
+    using System.Linq;
     using UnityEngine;
     using Zenject;
 
@@ -13,7 +14,7 @@ namespace BuilderGame.Gameplay.Farming
         [Inject]
         public DiContainer DiContainer { get; set; }
 
-        private List<FarmUnit> grassUnits = new();
+        private List<FarmUnit> farmUnits = new();
         private void Start()
         {
             SpawnGrassUnits();
@@ -27,8 +28,21 @@ namespace BuilderGame.Gameplay.Farming
                 {
                     var farmUnit = DiContainer.InstantiatePrefabForComponent<FarmUnit>(farmUnitPrefab, transform);
                     farmUnit.transform.position = GetCenteredPosition(i, j, farmUnit);
-                    grassUnits.Add(farmUnit);
+                    farmUnit.OnStateUpdated += OnUnitStateUpdated;
+                    farmUnits.Add(farmUnit);
                 }
+            }
+        }
+
+        private void OnUnitStateUpdated()
+        {
+            if (farmUnits.All(x => x.State == FarmUnitState.Ground))
+            {
+                Debug.Log($"<color=red> => Done </color>");
+            }
+            else
+            {
+                Debug.Log($"<color=red> => NOT ALL </color>");
             }
         }
 

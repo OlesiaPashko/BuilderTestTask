@@ -7,10 +7,17 @@ namespace BuilderGame.Gameplay.Farming
     public class GrassUnit : MonoBehaviour
     {
         [SerializeField] private GrassUnitAnimator animator;
+        public event Action OnDestroyed;
         
         private void OnTriggerEnter(Collider other)
         {
-            animator.Pump().AppendCallback(() => Destroy(gameObject));
+            animator.Pump().AppendCallback(SelfDestroy);
+        }
+
+        private void SelfDestroy()
+        {
+            OnDestroyed?.Invoke();
+            Destroy(gameObject);
         }
 
         private void OnValidate()
