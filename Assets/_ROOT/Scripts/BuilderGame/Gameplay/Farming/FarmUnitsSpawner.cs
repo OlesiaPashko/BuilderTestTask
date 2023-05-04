@@ -7,12 +7,15 @@ namespace BuilderGame.Gameplay.Farming
 
     public class FarmUnitsSpawner : MonoBehaviour
     {
+        [Inject]
+        public DiContainer DiContainer { get; set; }
+
+        [Inject]
+        public IFarmField FarmField { get; set; }
+        
         [SerializeField] private int rows = 5;
         [SerializeField] private int columns = 5;
         [SerializeField] private FarmUnit farmUnitPrefab;
-
-        [Inject]
-        public DiContainer DiContainer { get; set; }
 
         private List<FarmUnit> farmUnits = new();
         private void Start()
@@ -38,7 +41,7 @@ namespace BuilderGame.Gameplay.Farming
         {
             if (farmUnits.All(x => x.State == FarmUnitState.Ground))
             {
-                Debug.Log($"<color=red> => Done </color>");
+                FarmField.SetPlanting();
             }
             else
             {
