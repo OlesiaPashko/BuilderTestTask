@@ -4,11 +4,11 @@ namespace BuilderGame.Gameplay.Farming
 
     public class Plant : MonoBehaviour
     {
-        [SerializeField] private Transform model;
+        [SerializeField] private PlantAnimator plantAnimator;
         
         public void StartGrowing()
         {
-            model.gameObject.SetActive(true);
+            plantAnimator.AnimateGrow();
         }
     }
 }

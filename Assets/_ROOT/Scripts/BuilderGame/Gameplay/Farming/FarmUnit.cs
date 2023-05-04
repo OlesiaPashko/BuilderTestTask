@@ -2,9 +2,12 @@ namespace BuilderGame.Gameplay.Farming
 {
     using System;
     using UnityEngine;
+    using Zenject;
 
     public class FarmUnit : MonoBehaviour
     {
+        [Inject]
+        public IFarmField FarmField { get; set; }
         public float Size => 1f;
 
         public FarmUnitState State { get; private set; }
@@ -27,21 +30,23 @@ namespace BuilderGame.Gameplay.Farming
             {
                 return;
             }
-            isTriggered = true;
+
             if (State == FarmUnitState.Grass)
             {
+                isTriggered = true;
                 grassUnit.DestroyWithAnimation();
             }
-            else if(State == FarmUnitState.Ground)
-            {
+            else if(FarmField.State == FarmFieldState.Planting && State == FarmUnitState.Ground)
+            {            
+                isTriggered = true;
                 plant.StartGrowing();
             }
         }
 
         private void SetStateToGround()
         {
-            OnStateUpdated?.Invoke();
             State = FarmUnitState.Ground;
+            OnStateUpdated?.Invoke();
             isTriggered = false;
         }
         

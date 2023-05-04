@@ -39,6 +39,10 @@ namespace BuilderGame.Gameplay.Farming
 
         private void OnUnitStateUpdated()
         {
+            foreach (var farmUnit in farmUnits)
+            {
+                Debug.Log($"<color=red>farmUnit.State => {farmUnit.State} </color>");
+            }
             if (farmUnits.All(x => x.State == FarmUnitState.Ground))
             {
                 FarmField.SetPlanting();
