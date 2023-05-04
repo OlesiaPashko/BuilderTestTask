@@ -72,7 +72,7 @@ namespace BuilderGame.Gameplay.Farming
             var sequence = DOTween.Sequence();
             foreach (var plantView in plantViews)
             {
-                var currentPlant = Instantiate(plantView, transform);
+                var currentPlant = Instantiate(plantView, transform.position, Quaternion.Euler(new Vector3(Random.Range(-10f, 10f), Random.Range(0f, 180f), Random.Range(-10f, 10f))), transform);
                 var startSize = currentPlant.transform.localScale;
                 currentPlant.transform.localScale = Vector3.zero;
                 var size = startSize * startScale;

@@ -478,8 +478,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60e757f7555e4057a0b0bdabbf90f577, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDuration: 7.6
-  minDuration: 10
+  maxDuration: 4
+  minDuration: 5
   startScale: 0.848
   scaleEase: 6
   punchEase: 33
