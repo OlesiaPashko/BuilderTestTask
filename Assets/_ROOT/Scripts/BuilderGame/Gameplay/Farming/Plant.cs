@@ -8,13 +8,18 @@ namespace BuilderGame.Gameplay.Farming
     {
         [SerializeField] private PlantAnimator plantAnimator;
         [SerializeField] private float afterRaiseDelay = 1f;
+        [SerializeField] private GameObject doneFxPrefab;
 
         public event Action OnPlantReady;
         public event Action OnPlantRaised;
 
         public void StartGrowing()
         {
-            plantAnimator.AnimateGrow().AppendCallback(() => OnPlantReady?.Invoke());
+            plantAnimator.AnimateGrow().AppendCallback(() =>
+            {
+                Instantiate(doneFxPrefab, transform);
+                OnPlantReady?.Invoke();
+            });
         }
         
         public void Raise()

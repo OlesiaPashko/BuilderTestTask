@@ -58,24 +58,38 @@ namespace BuilderGame.Gameplay.Farming
 
         private Sequence PlantViewAnimation(float duration)
         {
-            var timePerPlant = duration / plantViews.Count;
+            var timePerPlant = duration / (2 * plantViews.Count);
             var sequence = DOTween.Sequence();
             foreach (var plantView in plantViews)
             {
                 var currentPlant = Instantiate(plantView, transform);
                 var startSize = currentPlant.transform.localScale;
                 currentPlant.transform.localScale = Vector3.zero;
+                var size = startSize * startScale;
                 sequence
-                    .AppendCallback(() => MakeBigPlant(plantView, currentPlant, startSize))
+                    .AppendCallback(() => MakeBigPlant(plantView, currentPlant, size))
                     .Append(currentPlant.transform.DOScale(startSize, timePerPlant)
                         .SetEase(scaleEase)
                     )
-                    .Append(currentPlant.transform.DOPunchScale(punchValue, timePerPlant / 4f, vibrato, elasticity)
-                        .SetEase(punchEase))
+                   // .Append(currentPlant.transform.DOPunchScale(punchValue, timePerPlant / 4f, vibrato, elasticity)
+                     //   .SetEase(punchEase))
+                    .Append(ScaleToNextForm(plantView, currentPlant, size, timePerPlant))
                     .AppendCallback(() => { DestroyPlant(plantView, currentPlant); });
             }
 
             return sequence;
+        }
+
+        private Tween ScaleToNextForm(GameObject plantView, GameObject currentPlant, Vector3 size, float timePerPlant)
+        {
+            if (plantView == plantViews[^1])
+            {
+                plantModel = currentPlant;
+                return DOTween.Sequence();
+            }
+
+            return currentPlant.transform.DOScale(size, timePerPlant)
+                .SetEase(scaleEase);
         }
 
         private void DestroyPlant(GameObject plantView, GameObject currentPlant)
@@ -89,9 +103,9 @@ namespace BuilderGame.Gameplay.Farming
             Destroy(currentPlant.gameObject);
         }
 
-        private void MakeBigPlant(GameObject plantView, GameObject currentPlant, Vector3 startSize)
+        private void MakeBigPlant(GameObject plantView, GameObject currentPlant, Vector3 size)
         {
-            currentPlant.transform.localScale = startSize * startScale;
+            currentPlant.transform.localScale = size;
             if (plantView == plantViews[0])
             {
                 return;

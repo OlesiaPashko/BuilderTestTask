@@ -291,6 +291,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plantAnimator: {fileID: 6160567400373262446}
   afterRaiseDelay: 1
+  doneFxPrefab: {fileID: 1700950352984132, guid: 5c72273bb626309448d894165a04778a, type: 3}
 --- !u!1 &5347816364394041366
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,9 +336,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60e757f7555e4057a0b0bdabbf90f577, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDuration: 3
-  minDuration: 5
-  startScale: 0.8
+  maxDuration: 7.6
+  minDuration: 10
+  startScale: 0.848
   scaleEase: 6
   punchEase: 33
   punchValue: {x: 0.05, y: 0.05, z: 0.05}
