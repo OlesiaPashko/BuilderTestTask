@@ -47,8 +47,9 @@ namespace BuilderGame.Gameplay.Farming
 
         private Vector3 GetCenteredPosition(int columnIndex, int rowIndex, FarmUnit farmUnit)
         {
-            return new Vector3(columnIndex - (columns / 2f) + (farmUnit.Size / 2f), 0,
+            var offset = new Vector3(columnIndex - (columns / 2f) + (farmUnit.Size / 2f), 0,
                 rowIndex - (rows / 2f) + (farmUnit.Size / 2f));
+            return transform.position + offset;
         }
     }
 }
