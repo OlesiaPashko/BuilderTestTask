@@ -1,12 +1,16 @@
 namespace BuilderGame.Gameplay.Unit.Animation
 {
     using System;
+    using Equipment;
     using UnityEngine;
 
     public class UnitDiggingAnimation : MonoBehaviour
     {
         [SerializeField]
         private Animator animator;
+        
+        [SerializeField]
+        private EquipmentContainer equipmentContainer;
         
         [SerializeField]
         private float transitionSpeed = 0.1f;
@@ -24,6 +28,7 @@ namespace BuilderGame.Gameplay.Unit.Animation
             if (DiggingState == DiggingState.NoDigging)
             {
                 DiggingState = DiggingState.TransitionToDigging;
+                equipmentContainer.AddShovel();
             }
             else if(DiggingState == DiggingState.Digging)
             {
@@ -81,12 +86,13 @@ namespace BuilderGame.Gameplay.Unit.Animation
             else
             {
                 DiggingState = DiggingState.NoDigging;
+                equipmentContainer.RemoveShovel();
             }
         }
 
         private void TransitToDigging()
         {
-            if (diggingAmount < 0.8f)
+            if (diggingAmount < 0.6f)
             {
                 diggingAmount += transitionSpeed;
             }

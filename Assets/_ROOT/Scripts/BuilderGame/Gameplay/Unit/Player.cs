@@ -17,7 +17,6 @@ namespace BuilderGame.Gameplay.Unit
         public void SetDigging()
         {
             unitDiggingAnimation.SetDigging();
-            
         }
     }
 }
