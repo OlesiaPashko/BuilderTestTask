@@ -100,7 +100,6 @@ namespace BuilderGame.Gameplay.Farming
 
             return DOTween.Sequence().Join(currentPlant.transform.DOScale(size, timePerPlant)
                 .SetEase(scaleEase));
-            //.Join(currentPlant.transform.DORotate(Vector3.zero, timePerPlant).SetEase(Ease.InSine));
         }
 
         private void DestroyPlant(GameObject plantView, GameObject currentPlant)
