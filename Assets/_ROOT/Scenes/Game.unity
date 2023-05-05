@@ -1723,10 +1723,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2077155772}
     m_Modifications:
+    - target: {fileID: 2319223644757195747, guid: 7b3b4f82db18090459984d8c95004ce0, type: 3}
+      propertyPath: animationTime
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 5214636896583248596, guid: 7b3b4f82db18090459984d8c95004ce0, type: 3}
       propertyPath: unitMovement
       value: 
       objectReference: {fileID: 1835203965}
+    - target: {fileID: 5214636897540777730, guid: 7b3b4f82db18090459984d8c95004ce0, type: 3}
+      propertyPath: Speed
+      value: 1.8
+      objectReference: {fileID: 0}
     - target: {fileID: 5214636897540777731, guid: 7b3b4f82db18090459984d8c95004ce0, type: 3}
       propertyPath: m_RootOrder
       value: 2
