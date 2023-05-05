@@ -30,7 +30,7 @@ namespace BuilderGame.Gameplay.Unit.Equipment
             {
                 return;
             }
-            currentTween = DOTween.Sequence().Append(spawnedEquipment.transform.DOScale(Vector3.zero, 1f))
+            currentTween = DOTween.Sequence().Append(spawnedEquipment.transform.DOScale(Vector3.zero, 0.6f))
                 .SetEase(Ease.OutQuint)
                 .AppendCallback(()=>Destroy(spawnedEquipment.gameObject));
         }
