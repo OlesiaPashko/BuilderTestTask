@@ -2,6 +2,7 @@ namespace BuilderGame.Gameplay.Farming
 {
     using System;
     using System.Threading.Tasks;
+    using Unit;
     using UnityEngine;
     using Zenject;
 
@@ -9,6 +10,9 @@ namespace BuilderGame.Gameplay.Farming
     {
         [Inject]
         public IFarmField FarmField { get; set; }
+
+        [Inject]
+        public Player Player { get; set; }
         public float Size => 1f;
 
         public FarmUnitState State { get; private set; }
@@ -38,6 +42,7 @@ namespace BuilderGame.Gameplay.Farming
             {
                 isTriggered = true;
                 grassUnit.DestroyWithAnimation();
+                Player.SetDigging();
             }
             else if(FarmField.State == FarmFieldState.Planting && State == FarmUnitState.Ground)
             {            
