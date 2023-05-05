@@ -1,6 +1,8 @@
 namespace BuilderGame.Gameplay.Farming
 {
+    using DG.Tweening;
     using Unit;
+    using Unity.VisualScripting;
     using UnityEngine;
     using Zenject;
 
@@ -17,7 +19,22 @@ namespace BuilderGame.Gameplay.Farming
 
         public void Raise()
         {
-            shouldMove = true;
+            var startParent = transform.parent;
+            transform.parent = Player.transform;
+            transform.localScale = Vector3.zero;
+            transform.DOScale(new Vector3(2f,2f,2f), 0.7f).SetEase(Ease.OutQuad);
+
+            transform.DOLocalJump(Vector3.up, 0.8f, 1, 0.9f).OnComplete(
+                () =>
+                {
+                    transform.DOScale(Vector3.zero, 0.7f)
+                        .OnComplete(() =>
+                        {
+                            Player.GetComponent<PumpingAnimator>().Pump();
+                            transform.parent = startParent;
+                            Destroy(gameObject);
+                        });
+                });
         }
         
         private void Update()
