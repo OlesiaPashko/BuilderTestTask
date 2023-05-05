@@ -1919,7 +1919,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2319223644757195747, guid: 7b3b4f82db18090459984d8c95004ce0, type: 3}
       propertyPath: animationTime
-      value: 1
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 2319223644757195747, guid: 7b3b4f82db18090459984d8c95004ce0, type: 3}
       propertyPath: transitionSpeed

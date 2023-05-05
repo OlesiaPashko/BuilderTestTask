@@ -9,20 +9,29 @@ namespace BuilderGame.Gameplay.Unit.Equipment
 
         private GameObject spawnedEquipment;
 
+        private Tween currentTween;
+
         public void AddShovel()
         {
+            currentTween?.Kill();
+            if (spawnedEquipment != null)
+            {
+                Destroy(spawnedEquipment.gameObject);
+            }
             spawnedEquipment = Instantiate(shovel, transform);
             spawnedEquipment.transform.localScale = Vector3.zero;
-            spawnedEquipment.transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.OutQuint);
+            currentTween = spawnedEquipment.transform.DOScale(Vector3.one, 0.35f).SetEase(Ease.OutQuint);
         }
         
         public void RemoveShovel()
         {
+            currentTween?.Kill();
             if (spawnedEquipment == null)
             {
                 return;
             }
-            DOTween.Sequence().Append(spawnedEquipment.transform.DOScale(Vector3.zero, 0.3f)).SetEase(Ease.OutQuint)
+            currentTween = DOTween.Sequence().Append(spawnedEquipment.transform.DOScale(Vector3.zero, 1f))
+                .SetEase(Ease.OutQuint)
                 .AppendCallback(()=>Destroy(spawnedEquipment.gameObject));
         }
     }
