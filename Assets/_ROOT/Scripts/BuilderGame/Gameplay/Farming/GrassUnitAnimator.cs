@@ -16,7 +16,6 @@ namespace BuilderGame.Gameplay.Farming
         [Header("Scale down")] 
         [SerializeField] private Ease scaleEase = Ease.InQuad;
         [SerializeField] private float scaleDuration = 0.5f;
-        //[SerializeField] private GameObject finalFx;
         
         public Sequence Pump()
         {
@@ -36,7 +35,7 @@ namespace BuilderGame.Gameplay.Farming
 
             var scale = transform.DOScale(new Vector3(0f, transform.position.y, 0f), scaleDuration)
                 .SetEase(scaleEase);
-            sequence.Append(scale);//.AppendCallback(() => Instantiate(finalFx, transform.parent));
+            sequence.Append(scale);
             return sequence;
         }
     }

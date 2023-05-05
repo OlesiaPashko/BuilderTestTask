@@ -19,10 +19,6 @@ namespace BuilderGame.Gameplay.Farming
         [Header("Growing")]
         [SerializeField, Range(0f, 1f)] private float startScale = 0.6f;
         [SerializeField] private Ease scaleEase = Ease.OutQuad;
-        [SerializeField] private Ease punchEase = Ease.OutQuad;
-        [SerializeField] private Vector3 punchValue = new Vector3(0.1f, 0.1f, 0.1f);
-        [SerializeField] private float elasticity = 0.3f;
-        [SerializeField] private int vibrato = 3;
         
         [Header("Raising")]
         [SerializeField] private Ease scaleDownEase = Ease.OutQuad;
